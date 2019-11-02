@@ -69,6 +69,12 @@ class Album:
         self.songs = set()
         artist.albums.add(self)
 
+    def add_song(self, song):
+        if song.artist != self.artist:
+            raise WrongArtistError("the artist doesn't match the album")
+        else:
+            self.songs.add(song)
+            
     @property
     def songs_number(self):
         return len(self.songs)
@@ -77,11 +83,6 @@ class Album:
     def duration(self):
         return sum(song.duration for song in self.songs)
 
-    def add_song(self, song):
-        if song.artist != self.artist:
-            raise WrongArtistError("the artist doesn't match the album")
-        else:
-            self.songs.add(song)
 
     def __repr__(self):
         return self.name
